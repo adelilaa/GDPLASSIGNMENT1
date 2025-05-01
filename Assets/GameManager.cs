@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance; // Static reference to the GameManager instance
     public static bool GameIsOver = false; // Static variable to check if the game is over
 
     public GameObject gameOverUI; // UI element to display when the game is over
@@ -16,12 +17,26 @@ public class GameManager : MonoBehaviour
     private int shotsLeft = 10;
     private int targetsLeft = 5;
 
-     void Start()
+    void Awake()
+    {
+        // Ensure only one GameManager exists
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy duplicates if there is more than one GameManager
+        }
+    }
+
+    void Start()
     {
         GameIsOver = false;
         UpdateUI();
     }
-     void Update()
+
+    void Update()
     {
         if (GameIsOver)
             return;
@@ -33,7 +48,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Example condition to complete the level if all targets are hit
-        if (targetsLeft <=0)
+        if (targetsLeft <= 0)
         {
             CompleteLevel();
         }
@@ -46,32 +61,28 @@ public class GameManager : MonoBehaviour
         {
             shotsLeft--;
             UpdateUI();
-
         }
     }
 
-    // Method to reduce the numbr of targets left
+    // Method to reduce the number of targets left
     public void TargetHit()
     {
         if (targetsLeft > 0)
         {
             targetsLeft--;
             UpdateUI();
-
         }
-
     }
 
     // Method to update the UI elements
     void UpdateUI()
     {
         shotsText.text = "Shots Left: " + shotsLeft;
-        targetsText.text = "Targets Left; " + targetsLeft;
-
+        targetsText.text = "Targets Left: " + targetsLeft;
     }
 
     // Method to handle game over scenario
-    void EndGame ()
+    void EndGame()
     {
         GameIsOver = true;
         gameOverUI.SetActive(true);
@@ -83,4 +94,11 @@ public class GameManager : MonoBehaviour
         GameIsOver = true;
         completeLevelUI.SetActive(true);
     }
+
+
+    public void UpdateShotsUI(int shotsLeft)
+    { 
+    
+    }
+
 }

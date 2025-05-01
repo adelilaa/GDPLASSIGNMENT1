@@ -6,16 +6,23 @@ using UnityEngine;
 
 public class BeachBall : MonoBehaviour
 {
+    // Respawn method
+    public void Respawn()
+    {
+        // Destroy the current ball (it will be respawned by the launcher)
+        Destroy(gameObject);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the balll hits a blue duck
+        // Check if the ball hits a blue duck
         if (collision.gameObject.CompareTag("Duck"))
         {
             // Destroy the duck
             Destroy(collision.gameObject);
 
             // Notify GameManager that a duck was hit
-            GameManagerDependencyInfo.Instance.TargetHit();
+            GameManager.Instance.TargetHit();
 
             // Respawn the ball
             Respawn();
@@ -35,21 +42,15 @@ public class BeachBall : MonoBehaviour
 
             // Respawn the ball
             Respawn();
-
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // if the ball falls off the platform (use a trigger plane below the platforms)
+        // If the ball falls off the platform (use a trigger plane below the platforms)
         if (other.gameObject.CompareTag("RespawnZone"))
         {
             Respawn();
         }
-    }
-
-    private void Respawn()
-    {
-        Destroy(gameObject); // destroy the ball; launcher handles creating a new one
     }
 }
