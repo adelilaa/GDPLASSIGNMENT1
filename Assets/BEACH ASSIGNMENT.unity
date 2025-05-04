@@ -122,6 +122,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &50774343
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436372168885811057, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7123159979502129481, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
+      propertyPath: m_Name
+      value: BeachBall
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b135e39e4157aa42acca91155f29458, type: 3}
 --- !u!1001 &52089798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -690,6 +747,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f277cf665fa04c344acd1b9eedc529fc, type: 3}
+--- !u!1 &734050988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 734050989}
+  m_Layer: 0
+  m_Name: LaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &734050989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734050988}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.006345837, y: -0.21628994, z: -0.0037240773, w: 0.9763015}
+  m_LocalPosition: {x: 4.3900023, y: -0.16000009, z: 0.29000095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2050470523}
+  m_LocalEulerAnglesHint: {x: -0.802, y: -24.981, z: -0.259}
 --- !u!1001 &820483430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1622,7 +1710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 446756, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.21
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 446756, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2049,11 +2137,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400000, guid: 840d7783691923d448f74265f9a2880e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 734050989}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 840d7783691923d448f74265f9a2880e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2050470519}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 840d7783691923d448f74265f9a2880e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2050470520}
   m_SourcePrefab: {fileID: 100100000, guid: 840d7783691923d448f74265f9a2880e, type: 3}
 --- !u!1 &2050470518 stripped
 GameObject:
@@ -2072,13 +2166,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005cfd203a012044d9033d4ac7be7c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchPoint: {fileID: 2105070201}
+  launchPoint: {fileID: 0}
   beachBallPrefab: {fileID: 1523843125}
   chargeSpeed: 10
   maxForce: 30
   upwardForce: 5
   shotsLeft: 10
   throwCooldown: 1
+--- !u!114 &2050470520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050470518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005cfd203a012044d9033d4ac7be7c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchPoint: {fileID: 734050989}
+  beachBallPrefab: {fileID: 0}
+  chargeSpeed: 10
+  maxForce: 30
+  upwardForce: 5
+  shotsLeft: 10
+  throwCooldown: 1
+--- !u!4 &2050470523 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 840d7783691923d448f74265f9a2880e, type: 3}
+  m_PrefabInstance: {fileID: 2050470517}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2104255691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2136,37 +2254,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d6c02e57e93df4f855d3e1d51abb24, type: 3}
---- !u!1 &2105070200
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2105070201}
-  m_Layer: 0
-  m_Name: Launch point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2105070201
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2105070200}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.063, y: 2.243, z: 8.113}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2196,4 +2283,4 @@ SceneRoots:
   - {fileID: 188809868}
   - {fileID: 1267094583}
   - {fileID: 422410374}
-  - {fileID: 2105070201}
+  - {fileID: 50774343}

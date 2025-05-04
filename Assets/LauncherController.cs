@@ -21,10 +21,10 @@ public class LauncherController : MonoBehaviour
 
     private void Update()
     {
-        // Stop if out of shots
+        //stop when ran out of shota
         if (shotsLeft <= 0) return;
 
-        // Start charging when space is pressed
+        //start charging when space is pressed
         if (Input.GetKeyDown(KeyCode.Space) && readyToThrow)
         {
             isCharging = true;
@@ -32,14 +32,14 @@ public class LauncherController : MonoBehaviour
 
         }
 
-        // Increase force while holding space
+        //increase force while holding space
         if (Input.GetKey(KeyCode.Space) && isCharging)
         {
             currentForce += chargeSpeed * Time.deltaTime;
             currentForce = Mathf.Clamp(currentForce, 0f, maxForce); //Limit force to maxForce
         }
 
-        // Launch when space is released
+        //launch when space is released
         if (Input.GetKeyUp(KeyCode.Space) && isCharging && readyToThrow)
         {
             Launch();
