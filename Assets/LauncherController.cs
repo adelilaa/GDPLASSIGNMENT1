@@ -66,8 +66,8 @@ public class LauncherController : MonoBehaviour
         Vector3 launchDir = launchPoint.forward * currentForce + Vector3.up * upwardForce;
         rb.AddForce(launchDir, ForceMode.Impulse); // Apply force instantly
 
-        shotsLeft--; // Reduce the number of shots
-        FindObjectOfType<GameManager>().UpdateShotsUI(shotsLeft); // Update UI
+        //shotsLeft--; // Reduce the number of shots
+        //GameManager.Instance.UpdateShotsUI(shotsLeft); // Update UI
 
         // Reactivate launching after cooldown
         Invoke(nameof(ResetThrow), throwCooldown);
@@ -82,7 +82,7 @@ public class LauncherController : MonoBehaviour
     public void AddShots(int amount)
     {
         shotsLeft += amount;
-        FindObjectOfType<GameManager>().UpdateShotsUI(shotsLeft);
+        //FindObjectOfType<GameManager>().UpdateShotsUI(shotsLeft);
 
     }
 

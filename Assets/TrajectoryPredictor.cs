@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TraectoryPredictor : MonoBehaviour
+[RequireComponent(typeof(LineRenderer))]
+public class TrajectoryPredictor : MonoBehaviour
 {
     #region Members
     LineRenderer trajectoryLine;
