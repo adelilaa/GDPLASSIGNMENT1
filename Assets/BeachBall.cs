@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectileThrow))]
 public class BeachBall : MonoBehaviour
 {
     private Vector3 originalPos = Vector3.zero;
@@ -17,8 +16,9 @@ public class BeachBall : MonoBehaviour
     public void Respawn()
     {
         // Destroy the current ball (it will be respawned by the launcher)
-        transform.position = originalPos;
-        GetComponent<ProjectileThrow>().hasLaunched = false;
+        //transform.position = originalPos;
+        //GetComponent<ProjectileThrow>().hasLaunched = false;
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -43,7 +43,7 @@ public class BeachBall : MonoBehaviour
             Destroy(collision.gameObject);
 
             // Add bonus shots via the launcher
-            FindObjectOfType<LauncherController>().AddShots(3);
+            FindObjectOfType<ProjectileThrow>().AddShot(1);
 
             // Notify GameManager as well
             GameManager.Instance.TargetHit();

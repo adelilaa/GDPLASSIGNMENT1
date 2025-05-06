@@ -1,33 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(TrajectoryPredictor))]
+
+
+
 public class ProjectileThrow : MonoBehaviour
 {
     public float chargeSpeed = 10f;
     public float maxForce = 30f;
     public float rotationSpeed = 50f;
-
+    public int shotCount;
     private float currentForce = 0f;
     private bool isCharging = false;
     [HideInInspector]
     public bool hasLaunched = false;
 
-    private Rigidbody rb;
-    private TrajectoryPredictor trajectoryPredictor;
+    [SerializeField]
+    private TrajectoryLine trajectoryLine;
+
+    //Place to spawn beachball
+    public Transform muzzle;
+    public GameObject BeachBall;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        trajectoryPredictor = GetComponent<TrajectoryPredictor>();
+        currentForce = 1f;
+        //rb = GetComponent<Rigidbody>();
+        //trajectoryPredictor = GetComponent<TrajectoryPredictor>();
     }
 
     void Update()
     {
-        rb.isKinematic = !hasLaunched;
-        if (hasLaunched) return;
+        trajectoryLine.ShowTrajectoryLine(muzzle.position, muzzle.forward * currentForce);
+        //rb.isKinematic = !hasLaunched;
+        //if (hasLaunched) return;
 
         HandleAiming();
         HandleCharging();
@@ -58,34 +66,49 @@ public class ProjectileThrow : MonoBehaviour
             currentForce += chargeSpeed * Time.deltaTime;
             print(currentForce);
             currentForce = Mathf.Clamp(currentForce, 0f, maxForce);
+            
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
-            Throw();
+            if (shotCount > 0)
+            {
+                Throw();
+            }
+            
         }
     }
 
     void Predict()
     {
-        ProjectileProperties props = new ProjectileProperties
-        {
-            initialPosition = transform.position,
-            direction = transform.forward,
-            initialSpeed = currentForce,
-            mass = rb.mass,
-            drag = rb.drag
-        };
+       // ProjectileProperties props = new ProjectileProperties
+       // {
+       //     initialPosition = transform.position,
+       //     direction = transform.forward,
+       //     initialSpeed = currentForce,
+       //     mass = rb.mass,
+       //     drag = rb.drag
+       // };
 
-        trajectoryPredictor.PredictTrajectory(props);
+       ////trajectoryPredictor.PredictTrajectory(props);
     }
 
+    public void AddShot(int shotaddition)
+    {
+        shotCount += shotaddition;
+    }
+
+    //
     void Throw()
     {
-        rb.isKinematic = false;
-        hasLaunched = true;
-        isCharging = false;
-        rb.AddForce(transform.forward * currentForce, ForceMode.Impulse);
-        trajectoryPredictor.SetTrajectoryVisible(false); // Hide line after launch
+        GameObject go = Instantiate(BeachBall, muzzle.position, Quaternion.identity);
+        Rigidbody beachBallRB = go.GetComponent<Rigidbody>();
+        beachBallRB.AddForce(muzzle.forward * currentForce, ForceMode.Impulse);
+        shotCount -= 1;
+        //rb.isKinematic = false;
+        //hasLaunched = true;
+        //isCharging = false;
+        //rb.AddForce(transform.forward * currentForce, ForceMode.Impulse);
+        //trajectoryPredictor.SetTrajectoryVisible(false); // Hide line after launch
     }
 }
