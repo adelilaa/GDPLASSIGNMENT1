@@ -14,6 +14,7 @@ public class ProjectileThrow : MonoBehaviour
     public int shotCount;
     private float currentForce = 0f;
     private bool isCharging = false;
+    public float maxRotation = 45f;
     [HideInInspector]
     public bool hasLaunched = false;
 
@@ -23,6 +24,21 @@ public class ProjectileThrow : MonoBehaviour
     //Place to spawn beachball
     public Transform muzzle;
     public GameObject BeachBall;
+
+    private float rotMin = 0f;
+    private float rotMax = 0f;
+    private float pitchMin = 0f;
+    private float pitchMax = 0f;
+
+    private void Awake()
+    {
+        rotMin = transform.rotation.eulerAngles.y - maxRotation;
+        rotMax = transform.rotation.eulerAngles.y + maxRotation;
+        pitchMin = transform.rotation.eulerAngles.x - maxRotation;
+        pitchMax = transform.rotation.eulerAngles.x + maxRotation;
+        Debug.Log(pitchMin + " " + pitchMax);
+
+    }
 
     void Start()
     {
@@ -50,8 +66,33 @@ public class ProjectileThrow : MonoBehaviour
         transform.Rotate(Vector3.up, horizontal * rotationSpeed * Time.deltaTime, Space.World);
         transform.Rotate(Vector3.right, -vertical * rotationSpeed * Time.deltaTime, Space.Self);
 
-        //GameManager.Instance.UpdateElevation(transform.rotation.y);
+        Vector3 euler = transform.rotation.eulerAngles;
+
+        //// Clamp Yaw (horizontal)
+        //Vector3 euler = transform.rotation.eulerAngles;
+        //if (euler.y < rotMin || euler.y > rotMax)
+        //{
+        //    euler.y = Mathf.Clamp(NormalizeAngle(euler.y), rotMin, rotMax);
+        //}
+
+        if (transform.rotation.eulerAngles.y < rotMin) { transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, rotMin, 0f); }
+        if (transform.rotation.eulerAngles.y > rotMax) { transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, rotMax, 0f); }
+
+        // Clamp Pitch (vertical)
+        float pitch = NormalizeAngle(euler.x);
+        pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
+        euler.x = pitch;
+
+        transform.rotation = Quaternion.Euler(euler.x, transform.rotation.eulerAngles.y, 0f);
     }
+
+    private float NormalizeAngle(float angle)
+    {
+        if (angle > 180f) angle -= 360f;
+        return angle;
+    }
+
+
 
     void HandleCharging()
     {
