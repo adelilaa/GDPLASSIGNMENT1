@@ -52,4 +52,16 @@ public class BeachBall : MonoBehaviour
             Respawn();
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Target"))
+        {
+            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+            }
+        }
+    }
 }

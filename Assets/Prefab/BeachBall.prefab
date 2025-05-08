@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3287972403084248891}
   - component: {fileID: 2739491785568368152}
   - component: {fileID: 1416843291438909478}
+  - component: {fileID: -5565527766245394721}
   m_Layer: 0
   m_Name: BeachBall
   m_TagString: Ball
@@ -105,7 +106,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.55
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2739491785568368152
 Rigidbody:
@@ -146,3 +147,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f474c5cbfb98534593d1499f7a023a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &-5565527766245394721
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789150119378011483}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
