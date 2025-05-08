@@ -29,8 +29,7 @@ public class BeachBall : MonoBehaviour
             // Destroy the duck
             Destroy(collision.gameObject);
 
-            // Notify GameManager that a duck was hit
-            GameManager.Instance.TargetHit();
+            GameManager.instance.DuckHit();
 
             // Respawn the ball
             Respawn();
@@ -43,10 +42,9 @@ public class BeachBall : MonoBehaviour
             Destroy(collision.gameObject);
 
             // Add bonus shots via the launcher
-            FindObjectOfType<ProjectileThrow>().AddShot(1);
+            //FindObjectOfType<ProjectileThrow>().AddShot(1);
 
-            // Notify GameManager as well
-            GameManager.Instance.TargetHit();
+            GameManager.instance.AddShot(1);
 
             // Respawn the ball
             Respawn();

@@ -1,98 +1,130 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public static bool GameIsOver = false;
+    public static GameManager instance;
 
-    public GameObject gameOverUI;
-    public GameObject completeLevelUI;
+    public ProjectileThrow playerLauncher;
 
-    public TextMeshProUGUI shotsText;
-    public TextMeshProUGUI targetsText;
-    public TextMeshProUGUI elevationText; // New UI element for elevation
+    [SerializeField] int beachBallsLeft = 10;
+    [SerializeField] int ducksLeft = 9;
 
-    private int shotsLeft = 10;
-    private int targetsLeft = 5;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject youWinScreen;
+    [SerializeField] private GameObject pauseScreen;
 
-    void Awake()
+    private bool isPaused = false;
+    private bool gameStarted = false;
+    public static bool skipStartScreen = false;
+
+    private void Awake()
     {
-        if (Instance == null)
+        instance = this;
+    }
+
+    private void Start()
+    {
+        gameStarted = true;
+        Time.timeScale = 1f;
+
+        if (HUD.instance != null)
         {
-            Instance = this;
+            HUD.instance.setDucksLeft(ducksLeft);
+            HUD.instance.setWaterLeft(beachBallsLeft);
+        }
+       
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && gameStarted)
+        {
+            TogglePause();
+        }
+    }
+
+    public void StartGame()
+    {
+        skipStartScreen = true;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void RestartGame()
+    {
+        skipStartScreen = true;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void UseShot(int value = 1)
+    {
+        beachBallsLeft -= value;
+        HUD.instance.setWaterLeft(beachBallsLeft);
+
+        if (beachBallsLeft <= 0 && ducksLeft > 0)
+        {
+            gameOverScreen.SetActive(true);
+            
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void AddShot(int value)
+    {
+        beachBallsLeft += value;
+        HUD.instance.setWaterLeft(beachBallsLeft);
+        playerLauncher.hasLaunched = false;
+    }
+
+    public void DuckHit()
+    {
+        ducksLeft--;
+        HUD.instance.setDucksLeft(ducksLeft);
+
+        if (ducksLeft <= 0 && beachBallsLeft >= 0)
+        {
+            youWinScreen.SetActive(true);
+            
+            Time.timeScale = 0f;
         }
         else
         {
-            Destroy(gameObject);
+            playerLauncher.hasLaunched = false;
         }
     }
 
-    void Start()
+    public void PauseGame()
     {
-        GameIsOver = false;
-        UpdateUI();
+        pauseScreen.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
     }
 
-    void Update()
+    public void ResumeGame()
     {
-        if (GameIsOver)
-            return;
-
-        if (shotsLeft <= 0 && targetsLeft > 0)
-        {
-            EndGame();
-        }
-
-        if (targetsLeft <= 0)
-        {
-            CompleteLevel();
-        }
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 
-    public void UseShot()
+    public void TogglePause()
     {
-        if (shotsLeft > 0)
-        {
-            shotsLeft--;
-            UpdateUI();
-        }
+        if (isPaused) ResumeGame();
+        else PauseGame();
     }
 
-    public void TargetHit()
+    public void ReturnToMainMenu()
     {
-        if (targetsLeft > 0)
-        {
-            targetsLeft--;
-            UpdateUI();
-        }
+        Time.timeScale = 1f; // Unpause the game just in case
+        SceneManager.LoadScene("Menu"); // Replace "Menu" with your actual scene name if different
     }
 
-    void UpdateUI()
+    public bool canShoot()
     {
-        shotsText.text = "Shots Left: " + shotsLeft;
-        targetsText.text = "Targets Left: " + targetsLeft;
-    }
-
-    void EndGame()
-    {
-        GameIsOver = true;
-        gameOverUI.SetActive(true);
-    }
-
-    void CompleteLevel()
-    {
-        GameIsOver = true;
-        completeLevelUI.SetActive(true);
-    }
-
-    // Method to update the elevation UI
-    public void UpdateElevation(float elevation)
-    {
-        elevationText.text = "Elevation: " + elevation.ToString("F1");
-        print("Elevation: " + elevation.ToString("F1"));
+        return beachBallsLeft > 0;
     }
 }

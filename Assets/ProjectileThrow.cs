@@ -56,6 +56,13 @@ public class ProjectileThrow : MonoBehaviour
         HandleAiming();
         HandleCharging();
         //Predict();
+
+        if (HUD.instance != null)
+        {
+            HUD.instance.setElevation(transform.localEulerAngles.x);
+            HUD.instance.setHorizontal(transform.localEulerAngles.y);
+            HUD.instance.setPower(currentForce / maxForce);
+        }
     }
 
     void HandleAiming()
@@ -68,17 +75,11 @@ public class ProjectileThrow : MonoBehaviour
 
         Vector3 euler = transform.rotation.eulerAngles;
 
-        //// Clamp Yaw (horizontal)
-        //Vector3 euler = transform.rotation.eulerAngles;
-        //if (euler.y < rotMin || euler.y > rotMax)
-        //{
-        //    euler.y = Mathf.Clamp(NormalizeAngle(euler.y), rotMin, rotMax);
-        //}
 
         if (transform.rotation.eulerAngles.y < rotMin) { transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, rotMin, 0f); }
         if (transform.rotation.eulerAngles.y > rotMax) { transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, rotMax, 0f); }
 
-        // Clamp Pitch (vertical)
+        
         float pitch = NormalizeAngle(euler.x);
         pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
         euler.x = pitch;
@@ -112,7 +113,7 @@ public class ProjectileThrow : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
-            if (shotCount > 0)
+            if (GameManager.instance.canShoot())
             {
                 Throw();
             }
@@ -145,11 +146,13 @@ public class ProjectileThrow : MonoBehaviour
         GameObject go = Instantiate(BeachBall, muzzle.position, Quaternion.identity);
         Rigidbody beachBallRB = go.GetComponent<Rigidbody>();
         beachBallRB.AddForce(muzzle.forward * currentForce, ForceMode.Impulse);
-        shotCount -= 1;
+        GameManager.instance.UseShot();
         //rb.isKinematic = false;
         //hasLaunched = true;
         //isCharging = false;
         //rb.AddForce(transform.forward * currentForce, ForceMode.Impulse);
         //trajectoryPredictor.SetTrajectoryVisible(false); // Hide line after launch
     }
+
+
 }
